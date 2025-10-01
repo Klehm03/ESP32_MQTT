@@ -1,12 +1,19 @@
 #include <WiFi.h>
 
+void scanLocalNetWork();
+
 void setup() {
   // put your setup code here, to run once:
   Serial.begin(115200);
   Serial.println("Iniciando Scan de Rede Wi-Fi");
+  scanLocalNetWork();
 }
 
 void loop() {
+  
+}
+
+void scanLocalNetWork(){
   // put your main code here, to run repeatedly:
   int number = WiFi.scanNetworks();
   delay(500);
