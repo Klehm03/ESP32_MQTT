@@ -27,21 +27,7 @@ Adafruit_SSD1306 tela(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, -1);
 
 
 void mostrarNaTela(int distancia, bool movimento, int limiar) {
-  tela.clearDisplay();
-  tela.setTextSize(1);
-  tela.setTextColor(SSD1306_WHITE);
-  tela.setCursor(0, 0);
-  tela.println("Dados Recebidos");
-  tela.println("----------------");
-  tela.setTextSize(1);
-  tela.print("Distancia: ");
-  tela.println(distancia);
-  tela.print("Status: ");
-  tela.println(movimento);
-  tela.print("Limiar: ");
-  tela.println(limiar);
-  tela.display();
-  Serial.println(">>> Dados exibidos no display");
+ 
 }
 
 
@@ -116,7 +102,7 @@ void setup() {
   if (!tela.begin(SSD1306_SWITCHCAPVCC, 0x3C)) {
     Serial.println("Falha ao inicializar o display OLED!");
     while (true)
-      ;
+      
   }
 
   tela.clearDisplay();
