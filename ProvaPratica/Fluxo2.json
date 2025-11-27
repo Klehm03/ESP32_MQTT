@@ -1,0 +1,1812 @@
+[
+    {
+        "id": "4d0a001f53725d33",
+        "type": "tab",
+        "label": "Fluxo 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "4ac4c713b8ad9084",
+        "type": "function",
+        "z": "4d0a001f53725d33",
+        "name": "Função Max & Min slider",
+        "func": "let ocupacao_max = flow.get(\"ocupacao_max\") || 0;\nflow.set(\"ocupacao_max\",msg.payload)\nmsg.payload = `<font color=red>${msg.payload}</font>`;\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 530,
+        "y": 520,
+        "wires": [
+            [
+                "17919e034cb380ee"
+            ]
+        ]
+    },
+    {
+        "id": "0d7c5978de43235b",
+        "type": "change",
+        "z": "4d0a001f53725d33",
+        "name": "True",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "Entrou na Sala",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 530,
+        "y": 280,
+        "wires": [
+            [
+                "2922906f0a63f409"
+            ]
+        ]
+    },
+    {
+        "id": "99e96b39de98fe5b",
+        "type": "change",
+        "z": "4d0a001f53725d33",
+        "name": "False",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "Saiu da Sala",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 530,
+        "y": 320,
+        "wires": [
+            [
+                "68f3db2e0e2055d6"
+            ]
+        ]
+    },
+    {
+        "id": "386f98ba5e28d6ef",
+        "type": "switch",
+        "z": "4d0a001f53725d33",
+        "name": "Separador True False",
+        "property": "payload.entrada",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "true"
+            },
+            {
+                "t": "false"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 360,
+        "y": 300,
+        "wires": [
+            [
+                "0d7c5978de43235b"
+            ],
+            [
+                "99e96b39de98fe5b"
+            ]
+        ]
+    },
+    {
+        "id": "25f59c0c18b0cc7d",
+        "type": "switch",
+        "z": "4d0a001f53725d33",
+        "name": "Separador On Off",
+        "property": "payload.status_esp2",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "Offline",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "Online",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 370,
+        "y": 100,
+        "wires": [
+            [
+                "b8c40de663708084"
+            ],
+            [
+                "48740279e6940e91"
+            ]
+        ]
+    },
+    {
+        "id": "b8c40de663708084",
+        "type": "change",
+        "z": "4d0a001f53725d33",
+        "name": "Offline",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "Offline",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 530,
+        "y": 80,
+        "wires": [
+            [
+                "6d83c23a8a9345a8"
+            ]
+        ]
+    },
+    {
+        "id": "48740279e6940e91",
+        "type": "change",
+        "z": "4d0a001f53725d33",
+        "name": "Online",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "Online",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 530,
+        "y": 120,
+        "wires": [
+            [
+                "5b86c8c617429c8e"
+            ]
+        ]
+    },
+    {
+        "id": "2acb3e7a7dec2cdd",
+        "type": "mqtt in",
+        "z": "4d0a001f53725d33",
+        "name": "",
+        "topic": "ProvaPratica/IoT/Status2",
+        "qos": "0",
+        "datatype": "auto-detect",
+        "broker": "1117a94459455b7d",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 150,
+        "y": 100,
+        "wires": [
+            [
+                "25f59c0c18b0cc7d"
+            ]
+        ]
+    },
+    {
+        "id": "e7ec64e32e9bc2bc",
+        "type": "mqtt in",
+        "z": "4d0a001f53725d33",
+        "name": "",
+        "topic": "ProvaPratica/IoT/Sensor",
+        "qos": "0",
+        "datatype": "auto-detect",
+        "broker": "1117a94459455b7d",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 130,
+        "y": 320,
+        "wires": [
+            [
+                "386f98ba5e28d6ef",
+                "d6d566a38f1df6ba"
+            ]
+        ]
+    },
+    {
+        "id": "d6d566a38f1df6ba",
+        "type": "function",
+        "z": "4d0a001f53725d33",
+        "name": "Somando quantidade de pessoas",
+        "func": "let ocupacao_atual = flow.get(\"ocupacao\") || 0;\nlet evento = msg.payload.entrada;\n\nif (ocupacao_atual === undefined) {\n    ocupacao_atual = 0;\n}\nif (evento == \"true\") {\n    ocupacao_atual += 1;\n}else if (evento == \"false\") {\n    ocupacao_atual -= 1;\n    \n}\nif (ocupacao_atual < 0) {\n    ocupacao_atual = ocupacao_atual;\n}\n\nflow.set(\"ocupacao\",ocupacao_atual);\nmsg.payload = ocupacao_atual;\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 400,
+        "y": 360,
+        "wires": [
+            [
+                "63c3c0ef7971637f"
+            ]
+        ]
+    },
+    {
+        "id": "a3b2e2b958e824c2",
+        "type": "function",
+        "z": "4d0a001f53725d33",
+        "name": "Separando e colorindo partes da quantidade de pessoa",
+        "func": "let divisao = Math.floor(flow.get(\"ocupacao_max\")/3);\n\nif (msg.payload.pessoas > (divisao * 2)) {\n    msg.payload = `<font color=red>${msg.payload.pessoas}</font>`;\n}else if (msg.payload.pessoas > (divisao)) {\n    msg.payload = `<font color=#FFBF00>${msg.payload.pessoas}</font>`;\n}else{ \n    msg.payload = `<font color=green>${msg.payload.pessoas}</font>`;\n}\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 810,
+        "y": 360,
+        "wires": [
+            [
+                "4af457253d92c9c2"
+            ]
+        ]
+    },
+    {
+        "id": "63c3c0ef7971637f",
+        "type": "change",
+        "z": "4d0a001f53725d33",
+        "name": "Mudando payload",
+        "rules": [
+            {
+                "t": "move",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.pessoas",
+                "tot": "msg"
+            },
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "quantidade",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 510,
+        "y": 400,
+        "wires": [
+            [
+                "a3b2e2b958e824c2",
+                "f9ad4fc4c7378662"
+            ]
+        ]
+    },
+    {
+        "id": "d90f25a3189415bd",
+        "type": "switch",
+        "z": "4d0a001f53725d33",
+        "name": "Separador On Off",
+        "property": "payload.status_esp1",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "Offline",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "Online",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 370,
+        "y": 180,
+        "wires": [
+            [
+                "61454d30bd7ff863"
+            ],
+            [
+                "279c960b2a319bf5"
+            ]
+        ]
+    },
+    {
+        "id": "61454d30bd7ff863",
+        "type": "change",
+        "z": "4d0a001f53725d33",
+        "name": "Offline",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "Offline",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 530,
+        "y": 160,
+        "wires": [
+            [
+                "d7b3815c8c8b5dd7"
+            ]
+        ]
+    },
+    {
+        "id": "279c960b2a319bf5",
+        "type": "change",
+        "z": "4d0a001f53725d33",
+        "name": "Online",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "Online",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 530,
+        "y": 200,
+        "wires": [
+            [
+                "fe54127e37104972"
+            ]
+        ]
+    },
+    {
+        "id": "3ff9e4e84e058ac6",
+        "type": "mqtt in",
+        "z": "4d0a001f53725d33",
+        "name": "",
+        "topic": "ProvaPratica/IoT/Status1",
+        "qos": "0",
+        "datatype": "auto-detect",
+        "broker": "1117a94459455b7d",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 150,
+        "y": 180,
+        "wires": [
+            [
+                "d90f25a3189415bd"
+            ]
+        ]
+    },
+    {
+        "id": "6d83c23a8a9345a8",
+        "type": "function",
+        "z": "4d0a001f53725d33",
+        "name": "Offline",
+        "func": "msg.payload = `<font color=black>${msg.payload}</font>`;\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 670,
+        "y": 80,
+        "wires": [
+            [
+                "d438d740dd321e1d"
+            ]
+        ]
+    },
+    {
+        "id": "5b86c8c617429c8e",
+        "type": "function",
+        "z": "4d0a001f53725d33",
+        "name": "Online",
+        "func": "msg.payload = `<font color=green>${msg.payload}</font>`;\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 670,
+        "y": 120,
+        "wires": [
+            [
+                "3fc16a311277c1b9"
+            ]
+        ]
+    },
+    {
+        "id": "d7b3815c8c8b5dd7",
+        "type": "function",
+        "z": "4d0a001f53725d33",
+        "name": "Offline",
+        "func": "msg.payload = `<font color=black>${msg.payload}</font>`;\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 670,
+        "y": 160,
+        "wires": [
+            [
+                "06103ca8c8a75c63"
+            ]
+        ]
+    },
+    {
+        "id": "fe54127e37104972",
+        "type": "function",
+        "z": "4d0a001f53725d33",
+        "name": "Online",
+        "func": "msg.payload = `<font color=green>${msg.payload}</font>`;\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 670,
+        "y": 200,
+        "wires": [
+            [
+                "207be7be639f2a7a"
+            ]
+        ]
+    },
+    {
+        "id": "3fc16a311277c1b9",
+        "type": "link out",
+        "z": "4d0a001f53725d33",
+        "name": "Online Sensor",
+        "mode": "link",
+        "links": [
+            "2e135d6f527eaf3e"
+        ],
+        "x": 765,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "06103ca8c8a75c63",
+        "type": "link out",
+        "z": "4d0a001f53725d33",
+        "name": "Offline DHT",
+        "mode": "link",
+        "links": [
+            "6a2e4b67e34365c6"
+        ],
+        "x": 765,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "207be7be639f2a7a",
+        "type": "link out",
+        "z": "4d0a001f53725d33",
+        "name": "Online DHT",
+        "mode": "link",
+        "links": [
+            "8930c92033621c1f"
+        ],
+        "x": 765,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "aafe7b008966ae30",
+        "type": "mqtt out",
+        "z": "4d0a001f53725d33",
+        "name": "",
+        "topic": "ProvaPratica/IoT/QntdPessoas",
+        "qos": "0",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "1117a94459455b7d",
+        "x": 870,
+        "y": 600,
+        "wires": []
+    },
+    {
+        "id": "ee10b31208656cc1",
+        "type": "function",
+        "z": "4d0a001f53725d33",
+        "name": "function 1",
+        "func": "let ocupacao_atual = flow.get(\"ocupacao\") || 0;\nlet evento = msg.payload.entrada;\n\nif (ocupacao_atual === undefined) {\n    ocupacao_atual = 0;\n}\nif (evento == true) {\n    ocupacao_atual += 1;\n}else if (evento == false) {\n    ocupacao_atual -= 1;\n    \n}\nif (ocupacao_atual < 0) {\n    ocupacao_atual = 0;\n}\n\nflow.set(\"ocupacao\",ocupacao_atual);\nmsg.payload = ocupacao_atual;\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 340,
+        "y": 600,
+        "wires": [
+            [
+                "c36a8ab41952e238",
+                "ac8f1071cb9c65a2"
+            ]
+        ]
+    },
+    {
+        "id": "c36a8ab41952e238",
+        "type": "change",
+        "z": "4d0a001f53725d33",
+        "name": "",
+        "rules": [
+            {
+                "t": "move",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.quantidade",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 510,
+        "y": 600,
+        "wires": [
+            [
+                "b1d4d7565c16a1f6"
+            ]
+        ]
+    },
+    {
+        "id": "b1d4d7565c16a1f6",
+        "type": "json",
+        "z": "4d0a001f53725d33",
+        "name": "",
+        "property": "payload",
+        "action": "str",
+        "pretty": false,
+        "x": 670,
+        "y": 600,
+        "wires": [
+            [
+                "aafe7b008966ae30"
+            ]
+        ]
+    },
+    {
+        "id": "9d0648f166bd8438",
+        "type": "mqtt in",
+        "z": "4d0a001f53725d33",
+        "name": "",
+        "topic": "ProvaPratica/IoT/Sensor",
+        "qos": "0",
+        "datatype": "auto-detect",
+        "broker": "1117a94459455b7d",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 150,
+        "y": 600,
+        "wires": [
+            [
+                "ee10b31208656cc1"
+            ]
+        ]
+    },
+    {
+        "id": "d438d740dd321e1d",
+        "type": "link out",
+        "z": "4d0a001f53725d33",
+        "name": "Offline Sensor",
+        "mode": "link",
+        "links": [
+            "92fe8af38b5e6afc"
+        ],
+        "x": 765,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "ac8f1071cb9c65a2",
+        "type": "link out",
+        "z": "4d0a001f53725d33",
+        "name": "Quantidade Pessoa",
+        "mode": "link",
+        "links": [
+            "b179c563297a1d2e"
+        ],
+        "x": 435,
+        "y": 640,
+        "wires": []
+    },
+    {
+        "id": "17919e034cb380ee",
+        "type": "link out",
+        "z": "4d0a001f53725d33",
+        "name": "Quantidade Maxima de Pessoa",
+        "mode": "link",
+        "links": [
+            "c13de383e4cde52b"
+        ],
+        "x": 675,
+        "y": 520,
+        "wires": []
+    },
+    {
+        "id": "4af457253d92c9c2",
+        "type": "link out",
+        "z": "4d0a001f53725d33",
+        "name": "Somando Quantidade Pessoa",
+        "mode": "link",
+        "links": [
+            "7b5834c339d35d33"
+        ],
+        "x": 1055,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "2922906f0a63f409",
+        "type": "link out",
+        "z": "4d0a001f53725d33",
+        "name": "Entrou na Sala",
+        "mode": "link",
+        "links": [
+            "29bacc256b69ea7b"
+        ],
+        "x": 615,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "68f3db2e0e2055d6",
+        "type": "link out",
+        "z": "4d0a001f53725d33",
+        "name": "Saiu da Sala",
+        "mode": "link",
+        "links": [
+            "62cc3bd8ba3842cf"
+        ],
+        "x": 615,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "9ae56bf1e0ce9a80",
+        "type": "link in",
+        "z": "4d0a001f53725d33",
+        "name": "Saiu da Sala",
+        "links": [
+            "796a7ac76d8594d2"
+        ],
+        "x": 385,
+        "y": 520,
+        "wires": [
+            [
+                "4ac4c713b8ad9084",
+                "90ffd3337d8b9161",
+                "61980eea7b642253"
+            ]
+        ]
+    },
+    {
+        "id": "90ffd3337d8b9161",
+        "type": "change",
+        "z": "4d0a001f53725d33",
+        "name": "",
+        "rules": [
+            {
+                "t": "move",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.max",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 510,
+        "y": 560,
+        "wires": [
+            [
+                "ed1fd901eb5916e4"
+            ]
+        ]
+    },
+    {
+        "id": "ed1fd901eb5916e4",
+        "type": "json",
+        "z": "4d0a001f53725d33",
+        "name": "",
+        "property": "payload",
+        "action": "str",
+        "pretty": false,
+        "x": 670,
+        "y": 560,
+        "wires": [
+            [
+                "69af88e3ccfb046f"
+            ]
+        ]
+    },
+    {
+        "id": "69af88e3ccfb046f",
+        "type": "mqtt out",
+        "z": "4d0a001f53725d33",
+        "name": "",
+        "topic": "ProvaPratica/IoT/QntdPessoasMax",
+        "qos": "0",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "1117a94459455b7d",
+        "x": 880,
+        "y": 560,
+        "wires": []
+    },
+    {
+        "id": "61980eea7b642253",
+        "type": "change",
+        "z": "4d0a001f53725d33",
+        "name": "Mudando payload",
+        "rules": [
+            {
+                "t": "move",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.max",
+                "tot": "msg"
+            },
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "maximo",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 510,
+        "y": 480,
+        "wires": [
+            [
+                "f9ad4fc4c7378662"
+            ]
+        ]
+    },
+    {
+        "id": "f66d3fa46697b173",
+        "type": "function",
+        "z": "4d0a001f53725d33",
+        "name": "function 2",
+        "func": "let pessoas = msg.payload.quantidade.pessoas;\nlet max = msg.payload.maximo.max;\n\nif (pessoas >= max) {\n    msg.payload = 'Quantidade maxima atingida';\n}else if (pessoas < max) {\n    msg.payload = '';\n}\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 840,
+        "y": 440,
+        "wires": [
+            [
+                "2809b28074681a7f"
+            ]
+        ]
+    },
+    {
+        "id": "f9ad4fc4c7378662",
+        "type": "join",
+        "z": "4d0a001f53725d33",
+        "name": "",
+        "mode": "custom",
+        "build": "object",
+        "property": "payload",
+        "propertyType": "msg",
+        "key": "topic",
+        "joiner": "\\n",
+        "joinerType": "str",
+        "useparts": false,
+        "accumulate": true,
+        "timeout": "",
+        "count": "2",
+        "reduceRight": false,
+        "reduceExp": "",
+        "reduceInit": "",
+        "reduceInitType": "",
+        "reduceFixup": "",
+        "x": 680,
+        "y": 440,
+        "wires": [
+            [
+                "f66d3fa46697b173"
+            ]
+        ]
+    },
+    {
+        "id": "2809b28074681a7f",
+        "type": "switch",
+        "z": "4d0a001f53725d33",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "nempty"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 1010,
+        "y": 440,
+        "wires": [
+            [
+                "d2de8a64500f04eb"
+            ]
+        ]
+    },
+    {
+        "id": "d2de8a64500f04eb",
+        "type": "link out",
+        "z": "4d0a001f53725d33",
+        "name": "NOTIFICATION",
+        "mode": "link",
+        "links": [
+            "c2dad2d60384dba4"
+        ],
+        "x": 1145,
+        "y": 440,
+        "wires": []
+    },
+    {
+        "id": "aae6489981955e2c",
+        "type": "tab",
+        "label": "Fluxo 2",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "0f32634f2db2855d",
+        "type": "ui-text",
+        "z": "aae6489981955e2c",
+        "group": "a45e31bc2aaa1439",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Status da Placa Sensor: ",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#717171",
+        "wrapText": false,
+        "className": "",
+        "value": "payload",
+        "valueType": "msg",
+        "x": 1090,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "a4c14d5dcdd017a4",
+        "type": "ui-text",
+        "z": "aae6489981955e2c",
+        "group": "a45e31bc2aaa1439",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Status da Placa Temperatura:",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#717171",
+        "wrapText": false,
+        "className": "",
+        "value": "payload",
+        "valueType": "msg",
+        "x": 1110,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "d288d12a806ec22a",
+        "type": "ui-text",
+        "z": "aae6489981955e2c",
+        "group": "a45e31bc2aaa1439",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Status Movimento:",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#717171",
+        "wrapText": false,
+        "className": "",
+        "value": "payload",
+        "valueType": "msg",
+        "x": 1070,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "1ddc7f0ca4ab8407",
+        "type": "ui-text",
+        "z": "aae6489981955e2c",
+        "group": "a45e31bc2aaa1439",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "name": "Quantidade de Pessoas em Sala: ",
+        "label": "Pessoas em Sala",
+        "format": "{{msg.payload}}",
+        "layout": "col-center",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#717171",
+        "wrapText": false,
+        "className": "",
+        "value": "payload",
+        "valueType": "msg",
+        "x": 1100,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "790762029799cd1f",
+        "type": "ui-text",
+        "z": "aae6489981955e2c",
+        "group": "a45e31bc2aaa1439",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "name": "Quantidade Max de Pessoas em Sala: ",
+        "label": "Máximo de Pessoas Permitidas em Sala",
+        "format": "{{msg.payload}}",
+        "layout": "col-center",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#717171",
+        "wrapText": false,
+        "className": "",
+        "value": "payload",
+        "valueType": "msg",
+        "x": 1130,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "101918f86aecd7a7",
+        "type": "mqtt in",
+        "z": "aae6489981955e2c",
+        "name": "",
+        "topic": "ProvaPratica/IoT/DHT",
+        "qos": "0",
+        "datatype": "auto-detect",
+        "broker": "1117a94459455b7d",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 750,
+        "y": 580,
+        "wires": [
+            [
+                "5133b55a1eb8ca45",
+                "c7a1bad205187de9"
+            ]
+        ]
+    },
+    {
+        "id": "5133b55a1eb8ca45",
+        "type": "change",
+        "z": "aae6489981955e2c",
+        "name": "Temperatura",
+        "rules": [
+            {
+                "t": "move",
+                "p": "payload.temperature",
+                "pt": "msg",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 970,
+        "y": 560,
+        "wires": [
+            [
+                "c72cd8a92e7e4b74"
+            ]
+        ]
+    },
+    {
+        "id": "c7a1bad205187de9",
+        "type": "change",
+        "z": "aae6489981955e2c",
+        "name": "Umidade",
+        "rules": [
+            {
+                "t": "move",
+                "p": "payload.humidity",
+                "pt": "msg",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 960,
+        "y": 600,
+        "wires": [
+            [
+                "04584469d37bc3ec"
+            ]
+        ]
+    },
+    {
+        "id": "c72cd8a92e7e4b74",
+        "type": "ui-gauge",
+        "z": "aae6489981955e2c",
+        "name": "Temperatura",
+        "group": "a45e31bc2aaa1439",
+        "order": 0,
+        "value": "payload",
+        "valueType": "msg",
+        "width": 3,
+        "height": 3,
+        "gtype": "gauge-half",
+        "gstyle": "needle",
+        "title": "Temperatura",
+        "alwaysShowTitle": false,
+        "floatingTitlePosition": "top-left",
+        "units": "units",
+        "icon": "",
+        "prefix": "",
+        "suffix": "",
+        "segments": [
+            {
+                "from": "0",
+                "color": "#5cd65c",
+                "text": "",
+                "textType": "label"
+            },
+            {
+                "from": "20",
+                "color": "#ffc800",
+                "text": "",
+                "textType": "label"
+            },
+            {
+                "from": "30",
+                "color": "#ea5353",
+                "text": "",
+                "textType": "label"
+            }
+        ],
+        "min": 0,
+        "max": "50",
+        "sizeThickness": 16,
+        "sizeGap": 4,
+        "sizeKeyThickness": 8,
+        "styleRounded": true,
+        "styleGlow": false,
+        "className": "",
+        "x": 1150,
+        "y": 560,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "04584469d37bc3ec",
+        "type": "ui-gauge",
+        "z": "aae6489981955e2c",
+        "name": "Umidade",
+        "group": "a45e31bc2aaa1439",
+        "order": 0,
+        "value": "payload",
+        "valueType": "msg",
+        "width": 3,
+        "height": 3,
+        "gtype": "gauge-half",
+        "gstyle": "needle",
+        "title": "Umidade",
+        "alwaysShowTitle": false,
+        "floatingTitlePosition": "top-left",
+        "units": "units",
+        "icon": "",
+        "prefix": "",
+        "suffix": "",
+        "segments": [
+            {
+                "from": "0",
+                "color": "#ff0000",
+                "text": "",
+                "textType": "label"
+            },
+            {
+                "from": "20",
+                "color": "#ffae00",
+                "text": "",
+                "textType": "label"
+            },
+            {
+                "from": "30",
+                "color": "#fbff00",
+                "text": "",
+                "textType": "label"
+            },
+            {
+                "from": "40",
+                "color": "#00ff11",
+                "text": "",
+                "textType": "label"
+            },
+            {
+                "from": "60",
+                "color": "#0091ff",
+                "text": "",
+                "textType": "label"
+            }
+        ],
+        "min": 0,
+        "max": "100",
+        "sizeThickness": 16,
+        "sizeGap": 4,
+        "sizeKeyThickness": 8,
+        "styleRounded": true,
+        "styleGlow": false,
+        "className": "",
+        "x": 1120,
+        "y": 600,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "1b14269e07519c1a",
+        "type": "change",
+        "z": "aae6489981955e2c",
+        "name": "Offline Placa Sensor",
+        "rules": [],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 860,
+        "y": 60,
+        "wires": [
+            [
+                "0f32634f2db2855d"
+            ]
+        ]
+    },
+    {
+        "id": "9498cf1b6bd44bc8",
+        "type": "change",
+        "z": "aae6489981955e2c",
+        "name": "Online Placa Sensor",
+        "rules": [
+            {
+                "t": "set",
+                "p": "OnlinePlacaSensor",
+                "pt": "global",
+                "to": "payload",
+                "tot": "msg",
+                "dc": true
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 860,
+        "y": 100,
+        "wires": [
+            [
+                "0f32634f2db2855d"
+            ]
+        ]
+    },
+    {
+        "id": "980d5e4346c19736",
+        "type": "change",
+        "z": "aae6489981955e2c",
+        "name": "Offline Placa DHT",
+        "rules": [
+            {
+                "t": "set",
+                "p": "OfflinePlacaDHT",
+                "pt": "global",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 850,
+        "y": 140,
+        "wires": [
+            [
+                "a4c14d5dcdd017a4"
+            ]
+        ]
+    },
+    {
+        "id": "e311b1d8e9ae7865",
+        "type": "change",
+        "z": "aae6489981955e2c",
+        "name": "Online Placa DHT",
+        "rules": [
+            {
+                "t": "set",
+                "p": "OnlinePlacaDHT",
+                "pt": "global",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 850,
+        "y": 180,
+        "wires": [
+            [
+                "a4c14d5dcdd017a4"
+            ]
+        ]
+    },
+    {
+        "id": "92fe8af38b5e6afc",
+        "type": "link in",
+        "z": "aae6489981955e2c",
+        "name": "Sensor Offline ",
+        "links": [
+            "d438d740dd321e1d"
+        ],
+        "x": 685,
+        "y": 60,
+        "wires": [
+            [
+                "1b14269e07519c1a"
+            ]
+        ]
+    },
+    {
+        "id": "2e135d6f527eaf3e",
+        "type": "link in",
+        "z": "aae6489981955e2c",
+        "name": "Sensor Online",
+        "links": [
+            "3fc16a311277c1b9"
+        ],
+        "x": 685,
+        "y": 100,
+        "wires": [
+            [
+                "9498cf1b6bd44bc8"
+            ]
+        ]
+    },
+    {
+        "id": "6a2e4b67e34365c6",
+        "type": "link in",
+        "z": "aae6489981955e2c",
+        "name": "DHT Offline",
+        "links": [
+            "06103ca8c8a75c63"
+        ],
+        "x": 685,
+        "y": 140,
+        "wires": [
+            [
+                "980d5e4346c19736"
+            ]
+        ]
+    },
+    {
+        "id": "8930c92033621c1f",
+        "type": "link in",
+        "z": "aae6489981955e2c",
+        "name": "DHT Online",
+        "links": [
+            "207be7be639f2a7a"
+        ],
+        "x": 685,
+        "y": 180,
+        "wires": [
+            [
+                "e311b1d8e9ae7865"
+            ]
+        ]
+    },
+    {
+        "id": "c13de383e4cde52b",
+        "type": "link in",
+        "z": "aae6489981955e2c",
+        "name": "Quantidade Max",
+        "links": [
+            "17919e034cb380ee"
+        ],
+        "x": 685,
+        "y": 260,
+        "wires": [
+            [
+                "790762029799cd1f",
+                "5e8bd621583e229a"
+            ]
+        ]
+    },
+    {
+        "id": "7b5834c339d35d33",
+        "type": "link in",
+        "z": "aae6489981955e2c",
+        "name": "Quantidade Pessoa em Sala",
+        "links": [
+            "4af457253d92c9c2"
+        ],
+        "x": 685,
+        "y": 300,
+        "wires": [
+            [
+                "1ddc7f0ca4ab8407"
+            ]
+        ]
+    },
+    {
+        "id": "c240127d9fc3fcc9",
+        "type": "ui-chart",
+        "z": "aae6489981955e2c",
+        "group": "8a779d330eca8d25",
+        "name": "",
+        "label": " Histórico de pessoas",
+        "order": 9007199254740991,
+        "chartType": "line",
+        "category": "",
+        "categoryType": "none",
+        "xAxisLabel": "",
+        "xAxisProperty": "",
+        "xAxisPropertyType": "timestamp",
+        "xAxisType": "time",
+        "xAxisFormat": "",
+        "xAxisFormatType": "auto",
+        "xmin": "",
+        "xmax": "",
+        "yAxisLabel": "",
+        "yAxisProperty": "payload",
+        "yAxisPropertyType": "msg",
+        "ymin": "",
+        "ymax": "",
+        "bins": 10,
+        "action": "append",
+        "stackSeries": false,
+        "pointShape": "circle",
+        "pointRadius": "7",
+        "showLegend": true,
+        "removeOlder": 1,
+        "removeOlderUnit": "3600",
+        "removeOlderPoints": "",
+        "colors": [
+            "#0095ff",
+            "#ff0000",
+            "#ff7f0e",
+            "#2ca02c",
+            "#a347e1",
+            "#9bca1c",
+            "#1b7e26",
+            "#000000",
+            "#243b7f"
+        ],
+        "textColor": [
+            "#666666"
+        ],
+        "textColorDefault": true,
+        "gridColor": [
+            "#e5e5e5"
+        ],
+        "gridColorDefault": true,
+        "width": 6,
+        "height": 8,
+        "className": "",
+        "interpolation": "linear",
+        "x": 1080,
+        "y": 220,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "b179c563297a1d2e",
+        "type": "link in",
+        "z": "aae6489981955e2c",
+        "name": "Sensor Offline ",
+        "links": [
+            "ac8f1071cb9c65a2"
+        ],
+        "x": 685,
+        "y": 220,
+        "wires": [
+            [
+                "c240127d9fc3fcc9"
+            ]
+        ]
+    },
+    {
+        "id": "29bacc256b69ea7b",
+        "type": "link in",
+        "z": "aae6489981955e2c",
+        "name": "Entrou na Sala",
+        "links": [
+            "2922906f0a63f409"
+        ],
+        "x": 685,
+        "y": 360,
+        "wires": [
+            [
+                "d288d12a806ec22a"
+            ]
+        ]
+    },
+    {
+        "id": "62cc3bd8ba3842cf",
+        "type": "link in",
+        "z": "aae6489981955e2c",
+        "name": "Saiu da Sala",
+        "links": [
+            "68f3db2e0e2055d6"
+        ],
+        "x": 685,
+        "y": 400,
+        "wires": [
+            [
+                "d288d12a806ec22a"
+            ]
+        ]
+    },
+    {
+        "id": "f90337e0b06d472d",
+        "type": "ui-slider",
+        "z": "aae6489981955e2c",
+        "group": "a45e31bc2aaa1439",
+        "name": "",
+        "label": "",
+        "tooltip": "",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "outs": "all",
+        "topic": "payload",
+        "topicType": "msg",
+        "thumbLabel": "true",
+        "showTicks": "always",
+        "min": "1",
+        "max": "100",
+        "step": 1,
+        "className": "",
+        "iconPrepend": "",
+        "iconAppend": "",
+        "color": "",
+        "colorTrack": "",
+        "colorThumb": "",
+        "showTextField": false,
+        "x": 790,
+        "y": 520,
+        "wires": [
+            [
+                "796a7ac76d8594d2"
+            ]
+        ]
+    },
+    {
+        "id": "796a7ac76d8594d2",
+        "type": "link out",
+        "z": "aae6489981955e2c",
+        "name": "Slider",
+        "mode": "link",
+        "links": [
+            "9ae56bf1e0ce9a80"
+        ],
+        "x": 885,
+        "y": 520,
+        "wires": []
+    },
+    {
+        "id": "5e8bd621583e229a",
+        "type": "link out",
+        "z": "aae6489981955e2c",
+        "name": "Mandando max flux2",
+        "mode": "link",
+        "links": [],
+        "x": 995,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "4a588a335e69b565",
+        "type": "ui-notification",
+        "z": "aae6489981955e2c",
+        "ui": "3e929334d49e5ba2",
+        "position": "top right",
+        "colorDefault": true,
+        "color": "#000000",
+        "displayTime": "3",
+        "showCountdown": true,
+        "outputs": 1,
+        "allowDismiss": true,
+        "dismissText": "Close",
+        "allowConfirm": false,
+        "confirmText": "Confirm",
+        "raw": false,
+        "className": "",
+        "name": "",
+        "x": 1070,
+        "y": 440,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "c2dad2d60384dba4",
+        "type": "link in",
+        "z": "aae6489981955e2c",
+        "name": "Saiu da Sala",
+        "links": [
+            "d2de8a64500f04eb"
+        ],
+        "x": 685,
+        "y": 440,
+        "wires": [
+            [
+                "4a588a335e69b565"
+            ]
+        ]
+    },
+    {
+        "id": "1117a94459455b7d",
+        "type": "mqtt-broker",
+        "name": "",
+        "broker": "224a031c7e714f00b6f5367683fd460c.s1.eu.hivemq.cloud",
+        "port": "8883",
+        "tls": "b6a973d9c7cce159",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": true,
+        "protocolVersion": 4,
+        "keepalive": 60,
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthRetain": "false",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closeRetain": "false",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willRetain": "false",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
+        "id": "a45e31bc2aaa1439",
+        "type": "ui-group",
+        "name": "Dados da Sala",
+        "page": "dd934d844d1084f4",
+        "width": 6,
+        "height": 1,
+        "order": 1,
+        "showTitle": true,
+        "className": "",
+        "visible": "true",
+        "disabled": "false",
+        "groupType": "default"
+    },
+    {
+        "id": "8a779d330eca8d25",
+        "type": "ui-group",
+        "name": "Histórico pessoas",
+        "page": "dd934d844d1084f4",
+        "width": 6,
+        "height": 1,
+        "order": -1,
+        "showTitle": true,
+        "className": "",
+        "visible": "true",
+        "disabled": "false",
+        "groupType": "default"
+    },
+    {
+        "id": "3e929334d49e5ba2",
+        "type": "ui-base",
+        "name": "My Dashboard",
+        "path": "/dashboard",
+        "appIcon": "",
+        "includeClientData": true,
+        "acceptsClientConfig": [
+            "ui-notification",
+            "ui-control"
+        ],
+        "showPathInSidebar": false,
+        "headerContent": "page",
+        "navigationStyle": "default",
+        "titleBarStyle": "default",
+        "showReconnectNotification": true,
+        "notificationDisplayTime": 1,
+        "showDisconnectNotification": true,
+        "allowInstall": false
+    },
+    {
+        "id": "b6a973d9c7cce159",
+        "type": "tls-config",
+        "name": "",
+        "cert": "",
+        "key": "",
+        "ca": "",
+        "certname": "",
+        "keyname": "",
+        "caname": "",
+        "servername": "",
+        "verifyservercert": false,
+        "alpnprotocol": ""
+    },
+    {
+        "id": "dd934d844d1084f4",
+        "type": "ui-page",
+        "name": "Pagina de Dados da Sala",
+        "ui": "3e929334d49e5ba2",
+        "path": "/page1",
+        "icon": "home",
+        "layout": "grid",
+        "theme": "4975faae48773ae1",
+        "breakpoints": [
+            {
+                "name": "Default",
+                "px": "0",
+                "cols": "3"
+            },
+            {
+                "name": "Tablet",
+                "px": "576",
+                "cols": "6"
+            },
+            {
+                "name": "Small Desktop",
+                "px": "768",
+                "cols": "9"
+            },
+            {
+                "name": "Desktop",
+                "px": "1024",
+                "cols": "12"
+            }
+        ],
+        "order": 1,
+        "className": "",
+        "visible": "true",
+        "disabled": "false"
+    },
+    {
+        "id": "4975faae48773ae1",
+        "type": "ui-theme",
+        "name": "Default Theme",
+        "colors": {
+            "surface": "#ffffff",
+            "primary": "#0094CE",
+            "bgPage": "#eeeeee",
+            "groupBg": "#ffffff",
+            "groupOutline": "#cccccc"
+        },
+        "sizes": {
+            "density": "default",
+            "pagePadding": "12px",
+            "groupGap": "12px",
+            "groupBorderRadius": "4px",
+            "widgetGap": "12px"
+        }
+    },
+    {
+        "id": "69c295deb3764d16",
+        "type": "global-config",
+        "env": [],
+        "modules": {
+            "@flowfuse/node-red-dashboard": "1.29.0"
+        }
+    }
+]
