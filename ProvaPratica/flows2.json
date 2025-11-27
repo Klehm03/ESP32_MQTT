@@ -1,0 +1,890 @@
+[
+    {
+        "id": "aae6489981955e2c",
+        "type": "tab",
+        "label": "Fluxo 2",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "0f32634f2db2855d",
+        "type": "ui-text",
+        "z": "aae6489981955e2c",
+        "group": "a45e31bc2aaa1439",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Status da Placa Sensor: ",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#717171",
+        "wrapText": false,
+        "className": "",
+        "value": "payload",
+        "valueType": "msg",
+        "x": 1090,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "a4c14d5dcdd017a4",
+        "type": "ui-text",
+        "z": "aae6489981955e2c",
+        "group": "a45e31bc2aaa1439",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Status da Placa Temperatura:",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#717171",
+        "wrapText": false,
+        "className": "",
+        "value": "payload",
+        "valueType": "msg",
+        "x": 1110,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "d288d12a806ec22a",
+        "type": "ui-text",
+        "z": "aae6489981955e2c",
+        "group": "a45e31bc2aaa1439",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Status Movimento:",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#717171",
+        "wrapText": false,
+        "className": "",
+        "value": "payload",
+        "valueType": "msg",
+        "x": 1070,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "1ddc7f0ca4ab8407",
+        "type": "ui-text",
+        "z": "aae6489981955e2c",
+        "group": "a45e31bc2aaa1439",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "name": "Quantidade de Pessoas em Sala: ",
+        "label": "Pessoas em Sala",
+        "format": "{{msg.payload}}",
+        "layout": "col-center",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#717171",
+        "wrapText": false,
+        "className": "",
+        "value": "payload",
+        "valueType": "msg",
+        "x": 1100,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "790762029799cd1f",
+        "type": "ui-text",
+        "z": "aae6489981955e2c",
+        "group": "a45e31bc2aaa1439",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "name": "Quantidade Max de Pessoas em Sala: ",
+        "label": "Máximo de Pessoas Permitidas em Sala",
+        "format": "{{msg.payload}}",
+        "layout": "col-center",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#717171",
+        "wrapText": false,
+        "className": "",
+        "value": "payload",
+        "valueType": "msg",
+        "x": 1130,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "101918f86aecd7a7",
+        "type": "mqtt in",
+        "z": "aae6489981955e2c",
+        "name": "",
+        "topic": "ProvaPratica/IoT/DHT",
+        "qos": "0",
+        "datatype": "auto-detect",
+        "broker": "1117a94459455b7d",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 750,
+        "y": 580,
+        "wires": [
+            [
+                "5133b55a1eb8ca45",
+                "c7a1bad205187de9"
+            ]
+        ]
+    },
+    {
+        "id": "5133b55a1eb8ca45",
+        "type": "change",
+        "z": "aae6489981955e2c",
+        "name": "Temperatura",
+        "rules": [
+            {
+                "t": "move",
+                "p": "payload.temperature",
+                "pt": "msg",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 970,
+        "y": 560,
+        "wires": [
+            [
+                "c72cd8a92e7e4b74"
+            ]
+        ]
+    },
+    {
+        "id": "c7a1bad205187de9",
+        "type": "change",
+        "z": "aae6489981955e2c",
+        "name": "Umidade",
+        "rules": [
+            {
+                "t": "move",
+                "p": "payload.humidity",
+                "pt": "msg",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 960,
+        "y": 600,
+        "wires": [
+            [
+                "04584469d37bc3ec"
+            ]
+        ]
+    },
+    {
+        "id": "c72cd8a92e7e4b74",
+        "type": "ui-gauge",
+        "z": "aae6489981955e2c",
+        "name": "Temperatura",
+        "group": "a45e31bc2aaa1439",
+        "order": 0,
+        "value": "payload",
+        "valueType": "msg",
+        "width": 3,
+        "height": 3,
+        "gtype": "gauge-half",
+        "gstyle": "needle",
+        "title": "Temperatura",
+        "alwaysShowTitle": false,
+        "floatingTitlePosition": "top-left",
+        "units": "units",
+        "icon": "",
+        "prefix": "",
+        "suffix": "",
+        "segments": [
+            {
+                "from": "0",
+                "color": "#5cd65c",
+                "text": "",
+                "textType": "label"
+            },
+            {
+                "from": "20",
+                "color": "#ffc800",
+                "text": "",
+                "textType": "label"
+            },
+            {
+                "from": "30",
+                "color": "#ea5353",
+                "text": "",
+                "textType": "label"
+            }
+        ],
+        "min": 0,
+        "max": "50",
+        "sizeThickness": 16,
+        "sizeGap": 4,
+        "sizeKeyThickness": 8,
+        "styleRounded": true,
+        "styleGlow": false,
+        "className": "",
+        "x": 1150,
+        "y": 560,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "04584469d37bc3ec",
+        "type": "ui-gauge",
+        "z": "aae6489981955e2c",
+        "name": "Umidade",
+        "group": "a45e31bc2aaa1439",
+        "order": 0,
+        "value": "payload",
+        "valueType": "msg",
+        "width": 3,
+        "height": 3,
+        "gtype": "gauge-half",
+        "gstyle": "needle",
+        "title": "Umidade",
+        "alwaysShowTitle": false,
+        "floatingTitlePosition": "top-left",
+        "units": "units",
+        "icon": "",
+        "prefix": "",
+        "suffix": "",
+        "segments": [
+            {
+                "from": "0",
+                "color": "#ff0000",
+                "text": "",
+                "textType": "label"
+            },
+            {
+                "from": "20",
+                "color": "#ffae00",
+                "text": "",
+                "textType": "label"
+            },
+            {
+                "from": "30",
+                "color": "#fbff00",
+                "text": "",
+                "textType": "label"
+            },
+            {
+                "from": "40",
+                "color": "#00ff11",
+                "text": "",
+                "textType": "label"
+            },
+            {
+                "from": "60",
+                "color": "#0091ff",
+                "text": "",
+                "textType": "label"
+            }
+        ],
+        "min": 0,
+        "max": "100",
+        "sizeThickness": 16,
+        "sizeGap": 4,
+        "sizeKeyThickness": 8,
+        "styleRounded": true,
+        "styleGlow": false,
+        "className": "",
+        "x": 1120,
+        "y": 600,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "1b14269e07519c1a",
+        "type": "change",
+        "z": "aae6489981955e2c",
+        "name": "Offline Placa Sensor",
+        "rules": [],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 860,
+        "y": 60,
+        "wires": [
+            [
+                "0f32634f2db2855d"
+            ]
+        ]
+    },
+    {
+        "id": "9498cf1b6bd44bc8",
+        "type": "change",
+        "z": "aae6489981955e2c",
+        "name": "Online Placa Sensor",
+        "rules": [
+            {
+                "t": "set",
+                "p": "OnlinePlacaSensor",
+                "pt": "global",
+                "to": "payload",
+                "tot": "msg",
+                "dc": true
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 860,
+        "y": 100,
+        "wires": [
+            [
+                "0f32634f2db2855d"
+            ]
+        ]
+    },
+    {
+        "id": "980d5e4346c19736",
+        "type": "change",
+        "z": "aae6489981955e2c",
+        "name": "Offline Placa DHT",
+        "rules": [
+            {
+                "t": "set",
+                "p": "OfflinePlacaDHT",
+                "pt": "global",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 850,
+        "y": 140,
+        "wires": [
+            [
+                "a4c14d5dcdd017a4"
+            ]
+        ]
+    },
+    {
+        "id": "e311b1d8e9ae7865",
+        "type": "change",
+        "z": "aae6489981955e2c",
+        "name": "Online Placa DHT",
+        "rules": [
+            {
+                "t": "set",
+                "p": "OnlinePlacaDHT",
+                "pt": "global",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 850,
+        "y": 180,
+        "wires": [
+            [
+                "a4c14d5dcdd017a4"
+            ]
+        ]
+    },
+    {
+        "id": "92fe8af38b5e6afc",
+        "type": "link in",
+        "z": "aae6489981955e2c",
+        "name": "Sensor Offline ",
+        "links": [
+            "d438d740dd321e1d"
+        ],
+        "x": 685,
+        "y": 60,
+        "wires": [
+            [
+                "1b14269e07519c1a"
+            ]
+        ]
+    },
+    {
+        "id": "2e135d6f527eaf3e",
+        "type": "link in",
+        "z": "aae6489981955e2c",
+        "name": "Sensor Online",
+        "links": [
+            "3fc16a311277c1b9"
+        ],
+        "x": 685,
+        "y": 100,
+        "wires": [
+            [
+                "9498cf1b6bd44bc8"
+            ]
+        ]
+    },
+    {
+        "id": "6a2e4b67e34365c6",
+        "type": "link in",
+        "z": "aae6489981955e2c",
+        "name": "DHT Offline",
+        "links": [
+            "06103ca8c8a75c63"
+        ],
+        "x": 685,
+        "y": 140,
+        "wires": [
+            [
+                "980d5e4346c19736"
+            ]
+        ]
+    },
+    {
+        "id": "8930c92033621c1f",
+        "type": "link in",
+        "z": "aae6489981955e2c",
+        "name": "DHT Online",
+        "links": [
+            "207be7be639f2a7a"
+        ],
+        "x": 685,
+        "y": 180,
+        "wires": [
+            [
+                "e311b1d8e9ae7865"
+            ]
+        ]
+    },
+    {
+        "id": "c13de383e4cde52b",
+        "type": "link in",
+        "z": "aae6489981955e2c",
+        "name": "Quantidade Max",
+        "links": [
+            "17919e034cb380ee"
+        ],
+        "x": 685,
+        "y": 260,
+        "wires": [
+            [
+                "790762029799cd1f",
+                "5e8bd621583e229a"
+            ]
+        ]
+    },
+    {
+        "id": "c240127d9fc3fcc9",
+        "type": "ui-chart",
+        "z": "aae6489981955e2c",
+        "group": "8a779d330eca8d25",
+        "name": "",
+        "label": " Histórico de pessoas",
+        "order": 9007199254740991,
+        "chartType": "line",
+        "category": "",
+        "categoryType": "none",
+        "xAxisLabel": "",
+        "xAxisProperty": "",
+        "xAxisPropertyType": "timestamp",
+        "xAxisType": "time",
+        "xAxisFormat": "",
+        "xAxisFormatType": "auto",
+        "xmin": "",
+        "xmax": "",
+        "yAxisLabel": "",
+        "yAxisProperty": "payload",
+        "yAxisPropertyType": "msg",
+        "ymin": "",
+        "ymax": "",
+        "bins": 10,
+        "action": "append",
+        "stackSeries": false,
+        "pointShape": "circle",
+        "pointRadius": "7",
+        "showLegend": true,
+        "removeOlder": 1,
+        "removeOlderUnit": "3600",
+        "removeOlderPoints": "",
+        "colors": [
+            "#0095ff",
+            "#ff0000",
+            "#ff7f0e",
+            "#2ca02c",
+            "#a347e1",
+            "#9bca1c",
+            "#1b7e26",
+            "#000000",
+            "#243b7f"
+        ],
+        "textColor": [
+            "#666666"
+        ],
+        "textColorDefault": true,
+        "gridColor": [
+            "#e5e5e5"
+        ],
+        "gridColorDefault": true,
+        "width": 6,
+        "height": 8,
+        "className": "",
+        "interpolation": "linear",
+        "x": 1080,
+        "y": 220,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "b179c563297a1d2e",
+        "type": "link in",
+        "z": "aae6489981955e2c",
+        "name": "Sensor Offline ",
+        "links": [
+            "ac8f1071cb9c65a2"
+        ],
+        "x": 685,
+        "y": 220,
+        "wires": [
+            [
+                "c240127d9fc3fcc9"
+            ]
+        ]
+    },
+    {
+        "id": "29bacc256b69ea7b",
+        "type": "link in",
+        "z": "aae6489981955e2c",
+        "name": "Entrou na Sala",
+        "links": [
+            "2922906f0a63f409"
+        ],
+        "x": 685,
+        "y": 360,
+        "wires": [
+            [
+                "d288d12a806ec22a"
+            ]
+        ]
+    },
+    {
+        "id": "62cc3bd8ba3842cf",
+        "type": "link in",
+        "z": "aae6489981955e2c",
+        "name": "Saiu da Sala",
+        "links": [
+            "68f3db2e0e2055d6"
+        ],
+        "x": 685,
+        "y": 400,
+        "wires": [
+            [
+                "d288d12a806ec22a"
+            ]
+        ]
+    },
+    {
+        "id": "f90337e0b06d472d",
+        "type": "ui-slider",
+        "z": "aae6489981955e2c",
+        "group": "a45e31bc2aaa1439",
+        "name": "",
+        "label": "",
+        "tooltip": "",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "outs": "all",
+        "topic": "payload",
+        "topicType": "msg",
+        "thumbLabel": "true",
+        "showTicks": "always",
+        "min": "1",
+        "max": "100",
+        "step": 1,
+        "className": "",
+        "iconPrepend": "",
+        "iconAppend": "",
+        "color": "",
+        "colorTrack": "",
+        "colorThumb": "",
+        "showTextField": false,
+        "x": 710,
+        "y": 520,
+        "wires": [
+            [
+                "796a7ac76d8594d2"
+            ]
+        ]
+    },
+    {
+        "id": "796a7ac76d8594d2",
+        "type": "link out",
+        "z": "aae6489981955e2c",
+        "name": "Slider",
+        "mode": "link",
+        "links": [
+            "9ae56bf1e0ce9a80"
+        ],
+        "x": 995,
+        "y": 520,
+        "wires": []
+    },
+    {
+        "id": "5e8bd621583e229a",
+        "type": "link out",
+        "z": "aae6489981955e2c",
+        "name": "Mandando max flux2",
+        "mode": "link",
+        "links": [],
+        "x": 995,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "4a588a335e69b565",
+        "type": "ui-notification",
+        "z": "aae6489981955e2c",
+        "ui": "3e929334d49e5ba2",
+        "position": "top center",
+        "colorDefault": true,
+        "color": "#000000",
+        "displayTime": "3",
+        "showCountdown": true,
+        "outputs": 1,
+        "allowDismiss": true,
+        "dismissText": "Close",
+        "allowConfirm": false,
+        "confirmText": "Confirm",
+        "raw": false,
+        "className": "",
+        "name": "",
+        "x": 1070,
+        "y": 440,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "c2dad2d60384dba4",
+        "type": "link in",
+        "z": "aae6489981955e2c",
+        "name": "Saiu da Sala",
+        "links": [
+            "d2de8a64500f04eb"
+        ],
+        "x": 685,
+        "y": 440,
+        "wires": [
+            [
+                "4a588a335e69b565"
+            ]
+        ]
+    },
+    {
+        "id": "7b5834c339d35d33",
+        "type": "link in",
+        "z": "aae6489981955e2c",
+        "name": "Quantidade Pessoa em Sala",
+        "links": [
+            "4af457253d92c9c2"
+        ],
+        "x": 685,
+        "y": 300,
+        "wires": [
+            [
+                "1ddc7f0ca4ab8407"
+            ]
+        ]
+    },
+    {
+        "id": "a45e31bc2aaa1439",
+        "type": "ui-group",
+        "name": "Dados da Sala",
+        "page": "dd934d844d1084f4",
+        "width": 6,
+        "height": 1,
+        "order": 1,
+        "showTitle": true,
+        "className": "",
+        "visible": "true",
+        "disabled": "false",
+        "groupType": "default"
+    },
+    {
+        "id": "1117a94459455b7d",
+        "type": "mqtt-broker",
+        "name": "",
+        "broker": "224a031c7e714f00b6f5367683fd460c.s1.eu.hivemq.cloud",
+        "port": "8883",
+        "tls": "b6a973d9c7cce159",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": true,
+        "protocolVersion": 4,
+        "keepalive": 60,
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthRetain": "false",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closeRetain": "false",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willRetain": "false",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
+        "id": "8a779d330eca8d25",
+        "type": "ui-group",
+        "name": "Histórico pessoas",
+        "page": "dd934d844d1084f4",
+        "width": 6,
+        "height": 1,
+        "order": -1,
+        "showTitle": true,
+        "className": "",
+        "visible": "true",
+        "disabled": "false",
+        "groupType": "default"
+    },
+    {
+        "id": "3e929334d49e5ba2",
+        "type": "ui-base",
+        "name": "My Dashboard",
+        "path": "/dashboard",
+        "appIcon": "",
+        "includeClientData": true,
+        "acceptsClientConfig": [
+            "ui-notification",
+            "ui-control"
+        ],
+        "showPathInSidebar": false,
+        "headerContent": "page",
+        "navigationStyle": "default",
+        "titleBarStyle": "default",
+        "showReconnectNotification": true,
+        "notificationDisplayTime": 1,
+        "showDisconnectNotification": true,
+        "allowInstall": false
+    },
+    {
+        "id": "dd934d844d1084f4",
+        "type": "ui-page",
+        "name": "Pagina de Dados da Sala",
+        "ui": "3e929334d49e5ba2",
+        "path": "/page1",
+        "icon": "home",
+        "layout": "grid",
+        "theme": "4975faae48773ae1",
+        "breakpoints": [
+            {
+                "name": "Default",
+                "px": "0",
+                "cols": "3"
+            },
+            {
+                "name": "Tablet",
+                "px": "576",
+                "cols": "6"
+            },
+            {
+                "name": "Small Desktop",
+                "px": "768",
+                "cols": "9"
+            },
+            {
+                "name": "Desktop",
+                "px": "1024",
+                "cols": "12"
+            }
+        ],
+        "order": 1,
+        "className": "",
+        "visible": "true",
+        "disabled": "false"
+    },
+    {
+        "id": "b6a973d9c7cce159",
+        "type": "tls-config",
+        "name": "",
+        "cert": "",
+        "key": "",
+        "ca": "",
+        "certname": "",
+        "keyname": "",
+        "caname": "",
+        "servername": "",
+        "verifyservercert": false,
+        "alpnprotocol": ""
+    },
+    {
+        "id": "4975faae48773ae1",
+        "type": "ui-theme",
+        "name": "Default Theme",
+        "colors": {
+            "surface": "#ffffff",
+            "primary": "#0094CE",
+            "bgPage": "#eeeeee",
+            "groupBg": "#ffffff",
+            "groupOutline": "#cccccc"
+        },
+        "sizes": {
+            "density": "default",
+            "pagePadding": "12px",
+            "groupGap": "12px",
+            "groupBorderRadius": "4px",
+            "widgetGap": "12px"
+        }
+    },
+    {
+        "id": "c30e21c4649f280f",
+        "type": "global-config",
+        "env": [],
+        "modules": {
+            "@flowfuse/node-red-dashboard": "1.29.0"
+        }
+    }
+]
